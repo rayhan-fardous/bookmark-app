@@ -70,3 +70,28 @@ a:hover,
 a:active {
   text-decoration: underline;
 }
+
+.fa-times {
+  float: right;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.name {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.name img {
+  height: 20px;
+  width: 20px;
+  vertical-align: sub;
+  margin-right: 5px;
+} 
+
+/* Media Query: Large Smartphone (vertical) */
+@media screen and (max-width: 600px){
+  .container {
+    flex-direction: column;
+  }
+}
