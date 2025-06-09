@@ -43,8 +43,8 @@ function validate(nameValue, urlValue) {
 // Fetch Bookmarks
 function fetchBookmarks() {
   // Get bookmarks from localStorage if available
-  if (localStorage.getItem("bookmark")) {
-    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+  if (localStorage.getItem('bookmarks')) {
+    bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
   } else {
     // Create bookmarks array in localstorage
     bookmarks = [
@@ -66,7 +66,6 @@ function storeBookmark(e) {
   if (!urlValue.includes("http://", "https://")) {
     urlValue = `https://${urlValue}`;
   }
-  console.log(nameValue, urlValue);
   if (!validate(nameValue, urlValue)) {
     return false;
   }
