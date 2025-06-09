@@ -6,6 +6,8 @@ const websiteNameEl = document.getElementById("website-name");
 const websiteUrlEl = document.getElementById("website-url");
 const bookmarksContainer = document.getElementById("bookmarks-container");
 
+let bookmarks = [];
+
 // Show Modal, Focus on Input
 function showModal() {
   modal.classList.add("show-modal");
@@ -27,7 +29,7 @@ function validate(nameValue, urlValue) {
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
   const regex = new RegExp(expression);
   if (!nameValue || !urlValue) {
-    alert('Please submit values for both fields');
+    alert("Please submit values for both fields");
     return false;
   }
   if (!urlValue.match(regex)) {
@@ -36,6 +38,24 @@ function validate(nameValue, urlValue) {
   }
   // Valid
   return true;
+}
+
+// Fetch Bookmarks
+function fetchBookmarks() {
+  // Get bookmarks from localStorage if available
+  if (localStorage.getItem("bookmark")) {
+    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+  } else {
+    // Create bookmarks array in localstorage
+    bookmarks = [
+      {
+        name: "RayHan Fardous",
+        url: "https://rayhan-fardous.netlify.app/",
+      },
+    ];
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  }
+  console.log(bookmarks);
 }
 
 // Handle Data from Form
@@ -50,7 +70,19 @@ function storeBookmark(e) {
   if (!validate(nameValue, urlValue)) {
     return false;
   }
+  const bookmark = {
+    name: nameValue,
+    url: urlValue,
+  };
+  bookmarks.push(bookmark);
+  localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  fetchBookmarks();
+  bookmarkForm.reset();
+  websiteNameEl.focus();
 }
 
 // Event Listener
 bookmarkForm.addEventListener("submit", storeBookmark);
+
+// On load, Fetch bookmarks
+fetchBookmarks();
